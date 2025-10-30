@@ -1,3 +1,69 @@
 {
-    
+  "products": [
+    {
+      "product_name": "Purchasing Domain and Server",
+      "price": "2300",
+      "created_at": "2025-10-29T04:23:15.634Z",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "product_name": "Custom Website Design",
+      "price": 1200,
+      "created_at": "2024-09-13T09:00:00Z"
+    },
+    {
+      "id": 3,
+      "product_name": "SEO Optimization Service",
+      "price": 300,
+      "created_at": "2024-09-12T14:15:30Z"
+    },
+    {
+      "id": 4,
+      "product_name": "Responsive Website Development",
+      "price": 800,
+      "created_at": "2024-09-11T10:45:00Z"
+    },
+    {
+      "id": 5,
+      "product_name": "E-commerce Setup Service",
+      "price": 1500,
+      "created_at": "2024-09-10T16:20:15Z"
+    },
+    {
+      "id": 6,
+      "product_name": "Website Maintenance Plan",
+      "price": 200,
+      "created_at": "2024-09-09T08:50:25Z"
+    }
+  ],
+  "vouchers": [
+    {
+      "voucher_id": "INV-20251030-8436",
+      "customer_name": "Manuel",
+      "customer_email": "antthtoonaing74@gmail.com",
+      "sale_date": "2025-10-30",
+      "redirect_to_detail": true,
+      "all_correct": true,
+      "records": [
+        {
+          "id": 1761797115875,
+          "product": {
+            "product_name": "Purchasing Domain and Server",
+            "price": "2300",
+            "created_at": "2025-10-29T04:23:15.634Z",
+            "id": 1
+          },
+          "quantity": "1",
+          "cost": 2300,
+          "created_at": "2025-10-30T04:05:15.875Z"
+        }
+      ],
+      "total": 2300,
+      "tax": 161.00000000000003,
+      "netTotal": 2461,
+      "created_at": "2025-10-30T04:05:22.243Z",
+      "id": 1
+    }
+  ]
 }

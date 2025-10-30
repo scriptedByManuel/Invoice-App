@@ -8,16 +8,20 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "json-server --watch data.json -p 5000"
+    "server": "json-server --watch data.json -p 5000 -d 500"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.16",
     "flowbite": "^3.1.2",
-    "json-server": "^1.0.0-beta.3",
+    "json-server": "^0.17.4",
+    "ldrs": "^1.1.9",
     "lucide-react": "^0.548.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-hook-form": "^7.65.0",
     "react-router-dom": "^7.9.4",
+    "sonner": "^2.0.7",
+    "swr": "^2.3.6",
     "tailwindcss": "^4.1.16",
     "zustand": "^5.0.8"
   },
