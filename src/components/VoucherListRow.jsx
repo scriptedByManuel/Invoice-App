@@ -1,9 +1,10 @@
-import { Trash2 } from 'lucide-react'
+import { ChevronRight, Trash2 } from 'lucide-react'
 import ShowDate from './ShowDate'
 import { toast } from 'sonner'
 import { lineSpinner } from 'ldrs'
 import { useState } from 'react'
-import { mutate, useSWRConfig } from 'swr'
+import { useSWRConfig } from 'swr'
+import { Link } from 'react-router-dom'
 lineSpinner.register()
 
 const VoucherListRow = ({ voucher: { id, voucher_id, customer_name, customer_email, created_at } }) => {
@@ -38,7 +39,13 @@ const VoucherListRow = ({ voucher: { id, voucher_id, customer_name, customer_ema
           </td>
           <td className="px-6 py-4 text-end">
               <div className="inline-flex rounded-lg border border-gray-300 overflow-hidden">
-
+                  <Link
+                      to={`/voucher/voucher-detail/${id}`}
+                      aria-label="Edit Product"
+                      className="cursor-pointer font-medium text-blue-600 px-3 py-2 hover:bg-gray-50 transition border-r border-gray-300"
+                  >
+                      <ChevronRight className="w-4 h-4" />
+                  </Link>
                   <button
                       onClick={handleDeleteBtn}
                       aria-label="Delete Product"

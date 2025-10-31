@@ -37,19 +37,20 @@ const VoucherInfo = () => {
             created_at: new Date().toISOString()
         }
         
-        await fetch(`${import.meta.env.VITE_URL_API}/vouchers`, {
+        const res = await fetch(`${import.meta.env.VITE_URL_API}/vouchers`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(voucher)
         })
+        const json = await res.json()
         toast.success('Voucher created successfully')
         setIsSending(false)
         resetRecords()
         reset()
         if (data.redirect_to_detail) {
-            navigate('/voucher')
+            navigate(`/voucher/voucher-detail/${json.id}`)
         }
     };
 
