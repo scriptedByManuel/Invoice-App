@@ -5,11 +5,12 @@ import { lineSpinner } from 'ldrs'
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
 import ShowDate from './ShowDate';
+import useCookie from "react-use-cookie";
 lineSpinner.register()
 
+const ProductRow = ({ product: { id, product_name, price, created_at, updated_at }, index }) => {
 
-const ProductRow = ({ product: { id, product_name, price, created_at }, index }) => {
-
+    const [token] = useCookie('my_token')
     const { mutate } = useSWRConfig()
     const [isDeleting, setIsDeleting] = useState(false)
 
@@ -17,7 +18,11 @@ const ProductRow = ({ product: { id, product_name, price, created_at }, index })
     const handleDeleteBtn = async () => {
         setIsDeleting(true)
         const res = await fetch(`${import.meta.env.VITE_URL_API}/products/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
         })
         mutate(import.meta.env.VITE_URL_API + `/products`)
         setIsDeleting(false)
@@ -27,7 +32,7 @@ const ProductRow = ({ product: { id, product_name, price, created_at }, index })
     return (
         <tr className="bg-white border-b border-gray-200 hover:bg-gray-100">
             <td className="px-6 py-4">
-                {index + 1}
+                {id}
             </td>
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                 {product_name}
@@ -39,9 +44,12 @@ const ProductRow = ({ product: { id, product_name, price, created_at }, index })
                 <ShowDate timestamp={created_at} />
             </td>
             <td className="px-6 py-4 text-end">
+                <ShowDate timestamp={updated_at} />
+            </td>
+            <td className="px-6 py-4 text-end">
                 <div className="inline-flex rounded-lg border border-gray-300 overflow-hidden">
                     <Link
-                        to={`/product/edit/${id}`}
+                        to={`/dashboard/product/edit/${id}`}
                         aria-label="Edit Product"
                         className="cursor-pointer font-medium text-blue-600 px-3 py-2 hover:bg-gray-50 transition border-r border-gray-300"
                     >

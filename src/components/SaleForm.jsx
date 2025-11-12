@@ -3,40 +3,62 @@ import { useForm } from "react-hook-form";
 import useSWR from "swr";
 import useRecordStore from "../stores/useRecordStore";
 import { toast } from "sonner";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import useCookie from "react-use-cookie";
 
 const SaleForm = () => {
+    const [token] = useCookie("my_token");
+    const { addRecord, records } = useRecordStore();
+    const { register, handleSubmit, reset } = useForm();
+
+    const fetcher = (url) =>
+        fetch(url, {
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        }).then((res) => {
+            if (!res.ok) throw new Error("Failed to fetch products");
+            return res.json();
+        });
+
     const { data, isLoading, error } = useSWR(
-        import.meta.env.VITE_URL_API + "/products",
+        token ? `${import.meta.env.VITE_URL_API}/products?limit=100` : null,
         fetcher
     );
 
-    const { register, handleSubmit, reset } = useForm();
-    const { addRecord, records } = useRecordStore()
-
-    
     const onSubmit = (data) => {
-        const currentProduct = JSON.parse(data.product)
-        const  currentProductId = currentProduct.id
+        const currentProduct = JSON.parse(data.product);
+        const currentProductId = currentProduct.id;
 
         const isExited = records.find(
             ({ product: { id } }) => currentProductId === id
         );
+
         if (!isExited) {
             const record = {
                 id: Date.now(),
                 product: currentProduct,
-                quantity: data.quantity,
-                cost: currentProduct.price * data.quantity,
-                created_at: new Date().toISOString()
-            }
-            addRecord(record)
+                product_id: currentProductId,
+                quantity: Number(data.quantity),
+                cost: currentProduct.price * Number(data.quantity),
+                created_at: new Date().toISOString(),
+            };
+            addRecord(record);
+            toast.success("Product added successfully");
         } else {
-            toast.warning('This product is already in the list')
+            toast.warning("This product is already in the list");
         }
-        reset()
+
+        reset();
     };
+
+    if (error) {
+        return (
+            <div className="bg-white p-5 rounded-lg border border-gray-200 mb-5">
+                <p className="text-red-500">⚠️ Failed to load products. Try again later.</p>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-white p-5 rounded-lg border border-gray-200 mb-5">
@@ -52,12 +74,16 @@ const SaleForm = () => {
                         <select
                             id="productSelect"
                             {...register("product")}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[42px]"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[42px]"
                             required
+                            disabled={isLoading}
                         >
-                            <option value="">Select a product</option>
+                            <option value="">
+                                {isLoading ? "Loading products..." : "Select a product"}
+                            </option>
                             {!isLoading &&
-                                data?.map((product) => (
+                                data?.data?.map((product) => (
                                     <option key={product.id} value={JSON.stringify(product)}>
                                         {product.product_name}
                                     </option>
@@ -76,15 +102,20 @@ const SaleForm = () => {
                             type="number"
                             id="quantityInput"
                             {...register("quantity")}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[42px]"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[42px]"
                             required
+                            min="1"
                         />
                     </div>
 
                     <div className="col-span-1 flex items-end">
                         <button
                             type="submit"
-                            className="text-blue-700 w-full h-[42px] flex justify-center items-center hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center"
+                            className="text-blue-700 w-full h-[42px] flex justify-center items-center 
+                        hover:text-white border border-blue-700 hover:bg-blue-800 
+                        focus:ring-4 focus:outline-none focus:ring-blue-300 
+                        font-medium rounded-lg text-sm text-center"
                         >
                             Add Product
                         </button>

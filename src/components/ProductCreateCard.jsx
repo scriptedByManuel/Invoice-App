@@ -3,12 +3,14 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { lineSpinner } from 'ldrs'
+import useCookie from 'react-use-cookie'
 lineSpinner.register()
 
 const ProductCreateCard = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
     const navigate = useNavigate()
     const [isSending, setIsSending] = useState(false)
+    const [token] = useCookie('my_token')
 
     const handleCreateProduct = async (data) => {
         setIsSending(true)
@@ -17,17 +19,18 @@ const ProductCreateCard = () => {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify({
                 product_name: data.product_name,
                 price: data.price,
-                created_at: new Date().toISOString()
             })
         })
         setIsSending(false)
         reset()
         if (data.go_back_after_save) {
-            navigate('/product')
+            navigate('/dashboard/product')
         }
         toast.success('Product created successfully')
     }

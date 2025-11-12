@@ -6,7 +6,7 @@ const VoucherTable = () => {
     const { records } = useRecordStore()
 
     const total = records.reduce((pv, cv) => pv + cv.cost ,0)
-    const tax =  total * 0.07
+    const tax =  total * 0.05
     const netTotal = tax + total
 
     return (
@@ -39,8 +39,8 @@ const VoucherTable = () => {
                         <td className="px-6 py-4 text-end"></td>
                     </tr>
                     <tr className="border-b border-gray-200">
-                        <td className="px-6 py-4 text-end" colSpan="4">Tax (Vat 7%)</td>
-                        <td className="px-6 py-4 text-end">{tax.toFixed()}</td>
+                        <td className="px-6 py-4 text-end" colSpan="4">Tax (Vat 5%)</td>
+                        <td className="px-6 py-4 text-end">{tax.toFixed(2)}</td>
                         <td className="px-6 py-4 text-end"></td>
                     </tr>
                     <tr className="">

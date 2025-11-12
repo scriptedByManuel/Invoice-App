@@ -8,7 +8,7 @@ const VoucherDetail = () => {
   return (
     <section>
       <Container>
-        <BreadCrumb currentPageTitle={'Voucher Detail'} links={[{ title: 'Voucher', path: '/voucher' }]} />
+        <BreadCrumb currentPageTitle={'Voucher Detail'} links={[{ title: 'Voucher', path: '/dashboard/voucher' }]} />
         <VoucherCard />
       </Container>
     </section>

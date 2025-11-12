@@ -1,27 +1,34 @@
 import React from 'react'
 import Container from '../components/Container'
-import { BadgeDollarSign, Database, ReceiptText } from 'lucide-react'
+import { BadgeDollarSign, Database, ReceiptText, User2Icon } from 'lucide-react'
 import ModuleBtn from '../components/ModuleBtn'
 
 const Dashboard = () => {
+ 
   const modules = [
     {
       id: 1,
       name: 'Product',
       icon: <Database strokeWidth={2} size={40} />,
-      url: '/product'
+      url: '/dashboard/product'
     },
     {
       id: 2,
       name: 'Sale',
       icon: <BadgeDollarSign strokeWidth={2} size={40} />,
-      url: '/sale'
+      url: '/dashboard/sale'
     },
     {
       id: 3,
       name: 'Voucher',
       icon: <ReceiptText strokeWidth={2} size={40} />,
-      url: '/voucher'
+      url: '/dashboard/voucher'
+    },
+    {
+      id: 4,
+      name: 'Profile',
+      icon: <User2Icon strokeWidth={2} size={40} />,
+      url: '/dashboard/user-profile'
     }
   ]
   return (

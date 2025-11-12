@@ -10,7 +10,7 @@ const BreadCrumb = ({ currentPageTitle, links }) => {
           {/* Home link */}
           <li>
             <Link
-              to="/"
+              to="/dashboard"
               className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-blue-600 transition duration-200"
             >
               <Home size={16} />

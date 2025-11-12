@@ -6,10 +6,15 @@ import SaleForm from "./SaleForm";
 import { lineSpinner } from "ldrs";
 import useRecordStore from "../stores/useRecordStore";
 import { toast } from "sonner";
+import useCookie from "react-use-cookie";
+
 
 lineSpinner.register();
 
 const VoucherInfo = () => {
+
+    const [token] = useCookie("my_token");
+
     const {
         register,
         handleSubmit,
@@ -25,32 +30,35 @@ const VoucherInfo = () => {
         setIsSending(true)
 
         const total = records.reduce((pv, cv) => pv + cv.cost, 0)
-        const tax = total * 0.07
-        const netTotal = tax + total
+        const tax = total * 0.05
+        const net_total = tax + total
 
         const voucher = {
             ...data,
             records,
             total,
             tax,
-            netTotal,
+            net_total,
             created_at: new Date().toISOString()
         }
-        
+
         const res = await fetch(`${import.meta.env.VITE_URL_API}/vouchers`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(voucher)
         })
         const json = await res.json()
+        console.log(json)
         toast.success('Voucher created successfully')
         setIsSending(false)
         resetRecords()
         reset()
         if (data.redirect_to_detail) {
-            navigate(`/voucher/voucher-detail/${json.id}`)
+            navigate(`/dashboard/voucher/voucher-detail/${json.data.id}`)
         }
     };
 
@@ -103,8 +111,8 @@ const VoucherInfo = () => {
                                 type="text"
                                 {...register("customer_name", { required: true })}
                                 className={`bg-gray-50 border ${errors.customer_name
-                                        ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                                        : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                    : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                                     } text-gray-900 text-sm rounded-lg block w-full p-2.5`}
                             />
                             {errors.customer_name && (
@@ -126,8 +134,8 @@ const VoucherInfo = () => {
                                 type="text"
                                 {...register("customer_email", { required: true })}
                                 className={`bg-gray-50 border ${errors.customer_email
-                                        ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                                        : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                    : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                                     } text-gray-900 text-sm rounded-lg block w-full p-2.5`}
                             />
                             {errors.customer_email && (
@@ -150,8 +158,8 @@ const VoucherInfo = () => {
                                 defaultValue={new Date().toISOString().slice(0, 10)}
                                 {...register("sale_date", { required: true })}
                                 className={`bg-gray-50 border ${errors.sale_date
-                                        ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                                        : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                                    : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                                     } text-gray-900 text-sm rounded-lg block w-full p-2.5`}
                             />
                             {errors.sale_date && (

@@ -5,12 +5,21 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { lineSpinner } from "ldrs";
 import { toast } from "sonner";
 import useSWR, { useSWRConfig } from "swr";
+import useCookie from "react-use-cookie";
 
 lineSpinner.register();
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const ProductEditCard = () => {
+    const [token] = useCookie('my_token')
+    const fetcher = (url) => fetch(url, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    }).then(res => res.json())
+
     const {
         register,
         handleSubmit,
@@ -34,11 +43,13 @@ const ProductEditCard = () => {
 
         await fetch(`${import.meta.env.VITE_URL_API}/products/${id}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
             body: JSON.stringify({
                 product_name: data.product_name,
                 price: data.price,
-                created_at: new Date().toISOString(),
             }),
         });
 
@@ -47,7 +58,7 @@ const ProductEditCard = () => {
         setIsSending(false);
         reset();
         toast.success("Product updated successfully");
-        navigate("/product");
+        navigate("/dashboard/product");
     };
 
     return (
@@ -76,7 +87,7 @@ const ProductEditCard = () => {
                                 minLength: 3,
                                 maxLength: 40,
                             })}
-                            defaultValue={data?.product_name}
+                            defaultValue={data?.data?.product_name}
                             className={`bg-gray-50 border ${errors.product_name
                                     ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                                     : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
@@ -116,7 +127,7 @@ const ProductEditCard = () => {
                                 min: 100,
                                 max: 10000,
                             })}
-                            defaultValue={data?.price}
+                            defaultValue={data?.data?.price}
                             className={`bg-gray-50 border ${errors.price
                                     ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                                     : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
@@ -159,7 +170,7 @@ const ProductEditCard = () => {
 
                     {/* Buttons */}
                     <Link
-                        to="/product"
+                        to="/dashboard/product"
                         className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100"
                     >
                         Cancel

@@ -7,7 +7,7 @@ const ProductEdit = () => {
     return (
         <section>
             <Container>
-                <BreadCrumb currentPageTitle={'Edit Product'} links={[{ title: 'Product', path: '/product' }]} />
+                <BreadCrumb currentPageTitle={'Edit Product'} links={[{ title: 'Product', path: '/dashboard/product' }]} />
                 <ProductEditCard />
             </Container>
         </section>
