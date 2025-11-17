@@ -1,9 +1,12 @@
 import { createRoot } from 'react-dom/client'
-import './index.css'
+import './styles/global.css'
 import 'flowbite';
 import { RouterProvider } from 'react-router-dom';
-import router from './router/Router';
+import { StrictMode } from 'react';
+import router from './routes/Router';
 
 createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}/>
+  <StrictMode>
+    <RouterProvider router={router} />
+ </StrictMode>
 )

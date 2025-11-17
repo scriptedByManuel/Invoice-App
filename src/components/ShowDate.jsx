@@ -10,7 +10,7 @@ const ShowDate = ({timestamp}) => {
     });
 
     const formattedTime = date.toLocaleTimeString('en-US', {
-        hour: '2-digit',
+        hour: 'numeric',
         minute: '2-digit',
         hour12: true,
     });
