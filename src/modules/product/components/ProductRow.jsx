@@ -16,7 +16,7 @@ const ProductRow = ({ product: { id, product_name, price, created_at, updated_at
 
     const handleDeleteBtn = async () => {
         setIsDeleting(true);
-        const res = await fetch(`${import.meta.env.VITE_URL_API}/products/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_URL_API}/dashboard/products/${id}`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
@@ -25,7 +25,7 @@ const ProductRow = ({ product: { id, product_name, price, created_at, updated_at
         });
 
         setIsDeleting(false);
-        const swrKey = `${import.meta.env.VITE_URL_API}/products`;
+        const swrKey = `${import.meta.env.VITE_URL_API}/dashboard/products`;
         mutate(swrKey);
         toast.success('Product deleted successfully');
     };

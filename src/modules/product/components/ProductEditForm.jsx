@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { lineSpinner } from "ldrs";
-import { toast } from "sonner";
-import useSWR, { useSWRConfig } from "swr";
-import useCookie from "react-use-cookie";
+
 import ProductEditSkeletonLoader from "./ProductEditSkeletonLoader";
 import useEditProduct from "../hooks/useEditProduct";
 

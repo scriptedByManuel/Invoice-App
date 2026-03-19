@@ -20,7 +20,7 @@ const useProduct = () => {
 
 
     const [fetchUrl, setFetchUrl] = useState(
-        `${import.meta.env.VITE_URL_API}/products${location.search}`
+        `${import.meta.env.VITE_URL_API}/dashboard/products${location.search}`
     );
 
     const { data, error, isLoading } = useSWR(fetchUrl, fetchProducts);
@@ -30,18 +30,18 @@ const useProduct = () => {
         if (e.target.value) {
             setParams({ q: e.target.value });
             setFetchUrl(
-                `${import.meta.env.VITE_URL_API}/products?q=${e.target.value}`
+                `${import.meta.env.VITE_URL_API}/dashboard/products?q=${e.target.value}`
             );
         } else {
             setParams({});
-            setFetchUrl(`${import.meta.env.VITE_URL_API}/products`);
+            setFetchUrl(`${import.meta.env.VITE_URL_API}/dashboard/products`);
         }
     }, 500);
 
     const handleClearSearch = () => {
         searchInput.current.value = "";
         setParams({});
-        setFetchUrl(`${import.meta.env.VITE_URL_API}/products`);
+        setFetchUrl(`${import.meta.env.VITE_URL_API}/dashboard/products`);
     };
 
     const updateFetchUrl = (url) => {
@@ -55,7 +55,7 @@ const useProduct = () => {
     const handleSort = (sortData) => {
         const queryString = new URLSearchParams(sortData).toString();
         setParams(sortData);
-        setFetchUrl(`${import.meta.env.VITE_URL_API}/products?${queryString}`);
+        setFetchUrl(`${import.meta.env.VITE_URL_API}/dashboard/products?${queryString}`);
     };
 
     return {
@@ -67,7 +67,6 @@ const useProduct = () => {
         handleClearSearch,
         updateFetchUrl,
         handleSort,
-        updateFetchUrl
     }
 }
 

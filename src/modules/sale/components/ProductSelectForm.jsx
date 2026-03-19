@@ -20,7 +20,7 @@ const ProductSelectForm = () => {
         }).then((res) => res.json());
 
     const { data, isLoading, error } = useSWR(
-        token ? `${import.meta.env.VITE_URL_API}/products?limit=100` : null,
+        token ? `${import.meta.env.VITE_URL_API}/dashboard/products?limit=100` : null,
         fetchProducts
     );
 

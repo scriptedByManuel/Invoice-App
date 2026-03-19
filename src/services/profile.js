@@ -3,7 +3,7 @@ import { getCookie } from "react-use-cookie";
 const token = getCookie("my_token");
 
 export const changeName = (data) => {
-    return fetch(import.meta.env.VITE_URL_API + "/user-profile/change-name", {
+    return fetch(import.meta.env.VITE_URL_API + "/dashboard/user-profile/change-name", {
         method: "PATCH",
         body: JSON.stringify(data),
         headers: {
@@ -15,7 +15,7 @@ export const changeName = (data) => {
 };
 
 export const changePassword = (data) => {
-    return fetch(import.meta.env.VITE_URL_API + "/user-profile/change-password", {
+    return fetch(import.meta.env.VITE_URL_API + "/dashboard/user-profile/change-password", {
         method: "PATCH",
         body: JSON.stringify(data),
         headers: {
@@ -27,7 +27,7 @@ export const changePassword = (data) => {
 };
 
 export const uploadImageToStorage = (formData) => {
-    return fetch(import.meta.env.VITE_URL_API + "/media", {
+    return fetch(import.meta.env.VITE_URL_API + "/dashboard/media", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -38,7 +38,7 @@ export const uploadImageToStorage = (formData) => {
 };
 
 export const changeProfileImage = (data) => {
-    return fetch(import.meta.env.VITE_URL_API + "/user-profile/change-profile-image", {
+    return fetch(import.meta.env.VITE_URL_API + "/dashboard/user-profile/change-profile-image", {
         method: "PATCH",
         body: JSON.stringify(data),
         headers: {

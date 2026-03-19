@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { register as accountRegister } from "../../../services/auth";
 import { toast } from "sonner";
 import useCookie from "react-use-cookie";
+import useUserStore from "../../../stores/useUserStore";
 
 
 const useRegister = () => {
@@ -16,6 +17,7 @@ const useRegister = () => {
 
     const [token, setToken] = useCookie("my_token");
     const [userCookie, setUserCookie] = useCookie("user");
+    const { setUser } = useUserStore()
 
     const handleRegister = async (data) => {
 
@@ -27,6 +29,7 @@ const useRegister = () => {
             toast.success("Register Successfully");
             setToken(json.token);
             setUserCookie(JSON.stringify(json.user));
+            setUser(json.user)
             navigate("/dashboard");
         } else {
             toast.error(json.message);

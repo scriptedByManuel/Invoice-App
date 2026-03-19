@@ -13,7 +13,7 @@ const useEditProduct = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const { data, isLoading } = useSWR(`${import.meta.env.VITE_URL_API}/products/${id}`, fetchProducts);
+    const { data, isLoading } = useSWR(`${import.meta.env.VITE_URL_API}/dashboard/products/${id}`, fetchProducts);
     const { mutate } = useSWRConfig();
 
     const [isSending, setIsSending] = useState(false);
@@ -29,8 +29,8 @@ const useEditProduct = () => {
             return;
         }
 
-        mutate(`${import.meta.env.VITE_URL_API}/products/`);
-        mutate(`${import.meta.env.VITE_URL_API}/products/${id}`);
+        mutate(`${import.meta.env.VITE_URL_API}/dashboard/products/`);
+        mutate(`${import.meta.env.VITE_URL_API}/dashboard/products/${id}`);
         setIsSending(false);
         reset();
         toast.success("Product updated successfully");

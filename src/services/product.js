@@ -3,7 +3,7 @@ import { getCookie } from "react-use-cookie";
 const API_URL = import.meta.env.VITE_URL_API;
 
 export const storeProduct = (product_name, price) => {
-    return fetch(`${API_URL}/products`, {
+    return fetch(`${API_URL}/dashboard/products`, {
         method: "POST",
         body: JSON.stringify({
             product_name,
@@ -17,7 +17,7 @@ export const storeProduct = (product_name, price) => {
 };
 
 export const destroyProduct = (id) => {
-    return fetch(`${API_URL}/products/${id}`, {
+    return fetch(`${API_URL}/dashboard/products/${id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export const destroyProduct = (id) => {
 };
 
 export const updateProduct = (id, product_name, price) => {
-    return fetch(`${API_URL}/products/${id}`, {
+    return fetch(`${API_URL}/dashboard/products/${id}`, {
         method: "PUT",
         body: JSON.stringify({
             product_name,

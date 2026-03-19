@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useCookie from "react-use-cookie";
 import { toast } from "sonner";
 import { login } from "../../../services/auth";
+import useUserStore from "../../../stores/useUserStore";
 
 const useLogin = () => {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ const useLogin = () => {
 
     const [token, setToken] = useCookie("my_token");
     const [userCookie, setUserCookie] = useCookie("user");
+    const { setUser } = useUserStore()
 
     const handleLogin = async (data) => {
         const res = await login(data);
@@ -25,6 +27,7 @@ const useLogin = () => {
             toast.success("Login Successfully");
             setToken(json.token);
             setUserCookie(JSON.stringify(json.user));
+            setUser(json.user)
             navigate("/dashboard");
         } else {
             toast.error(json.message);

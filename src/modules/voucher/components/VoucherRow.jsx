@@ -18,14 +18,14 @@ const VoucherRow = ({ voucher: { id, voucher_id, customer_name, customer_email, 
 
     const handleDeleteBtn = async () => {
         setIsDeleting(true)
-        await fetch(`${import.meta.env.VITE_URL_API}/vouchers/${id}`, {
+        await fetch(`${import.meta.env.VITE_URL_API}/dashboard/vouchers/${id}`, {
             method: 'DELETE',
             headers: {
                 Accept: "application/json",
                 Authorization: `Bearer ${token}`
             },
         })
-        mutate(import.meta.env.VITE_URL_API + `/vouchers`)
+        mutate(import.meta.env.VITE_URL_API + `/dashboard/vouchers`)
         setIsDeleting(false)
         toast.success('Voucher deleted successfully')
     }

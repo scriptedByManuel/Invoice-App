@@ -9,7 +9,7 @@ const VoucherCard = () => {
     const { id } = useParams();
 
     const { data, isLoading, error } = useSWR(
-        import.meta.env.VITE_URL_API + "/vouchers/" + id,
+        import.meta.env.VITE_URL_API + "/dashboard/vouchers/" + id,
         fetchVouchers
     );
 

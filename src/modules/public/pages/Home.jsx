@@ -1,20 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import useCookie from "react-use-cookie";
-import { useEffect } from "react";
-
 
 const Home = () => {
-    const navigate = useNavigate()
-
-    const [token, setToken] = useCookie("my_token");
-
-    useEffect(() => {
-        if (token) {
-            navigate('/dashboard')
-        }
-    }, [])
     
     return (
         <main className="min-h-screen flex flex-col justify-between bg-background text-foreground">

@@ -8,7 +8,7 @@ export const fetchVouchers = (url) =>
     }).then((res) => res.json());
 
 export const destroyVoucher = (id) => {
-    return fetch(import.meta.env.VITE_URL_API + "/vouchers/" + id, {
+    return fetch(import.meta.env.VITE_URL_API + "/dashboard/vouchers/" + id, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -18,7 +18,7 @@ export const destroyVoucher = (id) => {
 };
 
 export const storeVoucher = (currentVoucher) => {
-    return fetch(import.meta.env.VITE_URL_API + "/vouchers", {
+    return fetch(import.meta.env.VITE_URL_API + "/dashboard/vouchers", {
         method: "POST",
         body: JSON.stringify(currentVoucher),
         headers: {
